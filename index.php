@@ -12,6 +12,7 @@ table, td {
 </head>
 <body>
 
+<!-- Time of Day selector -->  
 <p>Select time of day: 
 <select id="timeOfDay" name="time">
   <option value="Morning">Morning</option>
@@ -20,22 +21,21 @@ table, td {
 </select>   
 </p>
 
+<!-- Enter Tasks -->
 <form>
-  Enter task: <input id="task_input" name="task" type="text"/><br/>
-</form>
+  Enter task: <input id="task_input" name="task" type="text"/>
+</form><br>
 
-<!-- <input type="submit" name="submit" value="Save Tasks"> -->
+<!-- Buttons -->
 <button onclick="myCreateFunction()">Add Task</button>
-<button onclick="myDeleteFunction()">Delete Last Task</button><br>  
+<button onclick="myDeleteFunction()">Delete Last Task</button><br>
 
-<!--
-<form action="javascript:myCreateFunction()" method="POST">
-  Enter task: <input id="task_input" name="task" type="text"/><br/>
-  <input type="submit" name="submit" value="Save Tasks">
-</form>  
--->
-
-  
+<!-- Save all added tasks to file using php script -->
+<br><form action="savetofile.php" method="POST">
+  <input type="submit" name="submit" value="Save Tasks to Flower">
+</form><br>  
+ 
+<!-- Tables -->  
 <table id="Morning">
  <th>Morning Tasks</th>
 </table>
@@ -50,6 +50,7 @@ table, td {
  <th>Evening Tasks</th>
 </table>
 <br>
+
 
 
 <script type="text/javascript">
