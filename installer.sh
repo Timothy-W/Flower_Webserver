@@ -30,7 +30,7 @@ echo -e "${PURP}Starting nginx service.${NC}"
 #sudo /etc/init.d/nginx start
 sudo systemctl enable nginx
 sudo systemctl start nginx
-sudo rm /var/www/html/index.nginx-debian.html
+sudo rm -f /var/www/html/index.nginx-debian.html
 sudo systemctl restart nginx
 
 echo -e "${PURP}NGINX default web page location: /var/www/html/index.nginx-debian.html${NC}"
