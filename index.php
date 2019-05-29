@@ -33,7 +33,7 @@ table, td {
   
   
   
-<!-- Table on display -->
+<!-- Table on display
 <table id="Morning2">
  <th>Morning Tasks</th>
 </table>
@@ -48,24 +48,24 @@ table, td {
  <th>Evening Tasks</th>
 </table>
 <br>
-
+-->
 
 
 <!-- Save all added tasks to file using php script -->
 <br><form action="savetofile.php" method="POST">
  <!-- Tables --> 
 <table id="Morning">
-<th></th>
+<th>Morning Tasks</th>
 </table>
 <br>
      
 <table id="Afternoon">
-<th></th>
+<th>Afternoon Tasks</th>
 </table>
 <br>
      
 <table id="Evening">   
-<th></th>
+<th>Evening Tasks</th>
 </table>
 <br> 
   <input type="submit" name="taskTable" value="Save Tasks to Flower">
@@ -78,7 +78,7 @@ table, td {
 function myCreateFunction() {
   var task = document.getElementById("task_input").value;
   var time = document.getElementById("timeOfDay").value;
-  var cellString = "<input type='hidden' name='" + time + "[]'" + " value='" + task + "'/>";
+  var cellString = "<input type='text' name='" + time + "[]'" + " value='" + task + "'/>";
   
   if (task != ""){
     var table = document.getElementById(time);
