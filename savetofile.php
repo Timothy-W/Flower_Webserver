@@ -1,5 +1,40 @@
 <?php
 
+
+
+
+
+echo "data: $data\n";
+
+if($data != ""){
+
+$ret = file_put_contents('/var/www/html/data/mydata.csv', $data, LOCK_EX);
+
+if($ret === false) {
+        die('There was an error writing this file');
+} else {
+        echo "$ret bytes written to file";
+        }
+
+}
+else {
+   die('No tasks entered');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
 //Morning Tasks
 
 if(isset($_POST['mtask1']) && $_POST['mtask1'] != ""){
@@ -72,6 +107,12 @@ if($ret === false) {
 else {
    die('No tasks entered');
 }
+
+
+
+
+*/
+
 
 
 ?>
