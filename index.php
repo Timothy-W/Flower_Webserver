@@ -1,34 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <title>Enter Tasks</title> 
-    </head>
+<html>
+<head>
+
+<style>
+table, td {
+  border: 0px solid black;
+}
+  
+  
+</style>
+</head>
 <body>
- 
-<p id="task_list"></p>
- 
-        <form action="savetofile.php" method="POST">
-           Morning Task 1: <input name="mtask1" type="text" value=""/><br/>
-           Morning Task 2: <input name="mtask2" type="text" value=""/><br/>
-           Morning Task 3: <input name="mtask3" type="text" value=""/><br/>
-           Morning Task 4: <input name="mtask4" type="text" value=""/><br/>
-           <br>
-           Afternoon Task 1: <input name="atask1" type="text" value=""/><br/>
-           Afternoon Task 2: <input name="atask2" type="text" value=""/><br/>
-           Afternoon Task 3: <input name="atask3" type="text" value=""/><br/>
-           Afternoon Task 4: <input name="atask4" type="text" value=""/><br/> 
-           <br>
-           Evening Task 1: <input name="etask1" type="text" value=""/><br/>
-           Evening Task 2: <input name="etask2" type="text" value=""/><br/>
-           Evening Task 3: <input name="etask3" type="text" value=""/><br/>
-           Evening Task 4: <input name="etask4" type="text" value=""/><br/> 
-           <input type="submit" name="submit" value="Save Tasks">
-        </form>
+
+<!-- Time of Day selector -->  
+<p>Select time of day: 
+<select id="timeOfDay" name="time">
+  <option value="Morning">Morning</option>
+  <option value="Afternoon">Afternoon</option>
+  <option value="Evening">Evening</option>
+</select>   
+</p>
+
+<!-- Enter Tasks -->
+<form>
+  Enter task: <input id="task_input" name="input_task" type="text"/>
+</form><br>
+
+<!-- Buttons -->
+<button onclick="myCreateFunction()">Add Task</button>
+<button onclick="myDeleteFunction()">Delete Last Task</button><br>
+
+  
+  
+  
+<!-- Table on display -->
+<table id="Morning2">
+ <th>Morning Tasks</th>
+</table>
+<br>
+  
+<table id="Afternoon2">
+ <th>Afternoon Tasks</th>
+</table>
+<br>
+  
+<table id="Evening2">
+ <th>Evening Tasks</th>
+</table>
+<br>
+
+
+
+<!-- Save all added tasks to file using php script -->
+<br><form action="savetofile.php" method="POST">
+ <!-- Tables --> 
+<table id="Morning">
+<th></th>
+</table>
+<br>
+     
+<table id="Afternoon">
+<th></th>
+</table>
+<br>
+     
+<table id="Evening">   
+<th></th>
+</table>
+<br> 
+  <input type="submit" name="taskTable" value="Save Tasks to Flower">
+</form><br>  
+
+
+
+
+<script type="text/javascript">
+function myCreateFunction() {
+  var task = document.getElementById("task_input").value;
+  var time = document.getElementById("timeOfDay").value;
+  var cellString = "<input type='hidden' name='" + time + "[]'" + " value='" + task + "'/>";
+  
+  if (task != ""){
+    var table = document.getElementById(time);
+    var row = table.insertRow(-1);
+    var cell = row.insertCell(0);
+    cell.innerHTML = cellString;	
+
+    var table = document.getElementById(time + '2');
+    var row = table.insertRow(-1);
+    var cell = row.insertCell(0);
+    cell.innerHTML = task;
+
+
+  }
+}
+
+function myDeleteFunction() {
+  
+  var time = document.getElementById("timeOfDay").value;
+   
+  var numCells = document.getElementById(time).rows.length;
+  
+  if (numCells > 1){
+  document.getElementById(time).deleteRow(-1);
+  document.getElementById(time + '2').deleteRow(-1);
+
+  }
+}
+  
+  
+  
+</script>
 
 </body>
 </html>
-
-
-
-
