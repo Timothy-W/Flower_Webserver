@@ -32,10 +32,7 @@ table, td {
 
 <!-- Save all added tasks to file using php script -->
 <br><form action="savetofile.php" method="POST">
-  <input type="submit" name="submit" value="Save Tasks to Flower">
-</form><br>  
- 
-<!-- Tables -->  
+ <!-- Tables --> 
 <table id="Morning">
  <th>Morning Tasks</th>
 </table>
@@ -50,7 +47,28 @@ table, td {
  <th>Evening Tasks</th>
 </table>
 <br>
-
+  <input type="submit" name="taskTable" value="Save Tasks to Flower">
+</form><br>  
+ 
+  
+  
+  
+<!-- Tables  
+<table id="Morning">
+ <th>Morning Tasks</th>
+</table>
+<br>
+  
+<table id="Afternoon">
+ <th>Afternoon Tasks</th>
+</table>
+<br>
+  
+<table id="Evening">
+ <th>Evening Tasks</th>
+</table>
+<br>
+-->
 
 
 <script type="text/javascript">
