@@ -29,31 +29,6 @@ table, td {
 <!-- Buttons -->
 <button onclick="myCreateFunction()">Add Task</button>
 
-
-<!--
-<button onclick="myDeleteFunction()">Delete Last Task</button><br>
--->
-  
-  
-  
-<!-- Table on display 
-<table id="Morning2">
- <th>Morning Tasks</th>
-</table>
-<br>
-  
-<table id="Afternoon2">
- <th>Afternoon Tasks</th>
-</table>
-<br>
-  
-<table id="Evening2">
- <th>Evening Tasks</th>
-</table>
-<br>
--->
-
-
 <!-- Save all added tasks to file using php script -->
 <br><form action="savetofile.php" method="POST">
  <!-- Tables --> 
@@ -95,13 +70,6 @@ function myCreateFunction() {
 
     var cell2 = row.insertCell(1);
     cell2.innerHTML = deleteMeStr;
-
-    /*
-    var table = document.getElementById(time + '2');
-    var row = table.insertRow(-1);
-    var cell = row.insertCell(0);
-    cell.innerHTML = task;
-    */
 
   }
 }
