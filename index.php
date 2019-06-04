@@ -30,7 +30,7 @@ table, td {
 <button onclick="myCreateFunction()">Add Task</button>
 
 <!-- Save all added tasks to file using php script -->
-<br><form action="savetofile.php" method="POST">
+<br><form action="index.php" method="POST">
  <!-- Tables --> 
 <table id="Morning">
 <th>Morning Tasks</th>
@@ -55,10 +55,12 @@ table, td {
 
 <script type="text/javascript">
 function myCreateFunction() {
-  var task = document.getElementById("task_input").value;
+  var task = document.getElementById("task_input").value; //getting task correctly
+  console.log("Task '" + task + "' entered.");
   var time = document.getElementById("timeOfDay").value;
-  var stringOfName = time + "[]"
+  var stringOfName = time + "[]'"
   var labelString = "<label for='" + stringOfName + "'>" + task + "</label>"
+  console.log("labelSring: " + labelString);
   var deleteMeStr = "<input type='button' value='Delete Task' onclick='deleteRow(this)'>";
   var cellString = "<input type='text' name='" + stringOfName + " value='" + task + "'/>";
   
@@ -127,3 +129,52 @@ function myDeleteFunction() {
 
 </body>
 </html>
+
+<?php
+
+$savedFile = '/tasks/mydata.csv';
+
+if(!empty($_POST['Morning']) or !empty($_POST['Afternoon']) or !empty($_POST['Evening']) ){
+
+  $count = 0;
+  $data = "Morning,";
+
+  foreach ($_POST['Morning'] as $key => $value) {
+          $data = $data . $value . ',';
+          $count++;
+  }
+
+  $data = $data . "Afternoon,";
+
+  foreach ($_POST['Afternoon'] as $key => $value) {
+          $data = $data . $value . ',';
+          $count++;
+  }
+
+  $data = $data . "Evening,";
+
+  foreach ($_POST['Evening'] as $key => $value) {
+          $data = $data . $value . ',';
+          $count++;
+  }
+  
+  $data = rtrim($data,',');
+  
+  echo "data: <br>$data";
+  echo "<br><br>";
+
+
+  $ret = file_put_contents($savedFile, $data, LOCK_EX);
+
+  if($ret === false) {
+          die('There was an error writing this file');
+  } else {
+          echo "$count tasks saved. \n $ret bytes written to file.";
+          }
+
+  }
+
+  elseif ($count != 0) {
+    die('No tasks entered'); // TODO this always gets executed, need to change that
+  }
+?>
