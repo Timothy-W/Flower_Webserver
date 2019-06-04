@@ -134,47 +134,44 @@ function myDeleteFunction() {
 
 $savedFile = '/tasks/mydata.csv';
 
+//Save tasks to file.
 if(!empty($_POST['Morning']) or !empty($_POST['Afternoon']) or !empty($_POST['Evening']) ){
+    $count = 0;
+    $data = "Morning,";
 
-  $count = 0;
-  $data = "Morning,";
+    foreach ($_POST['Morning'] as $key => $value) {
+        $data = $data . $value . ',';
+        $count++;
+    }
 
-  foreach ($_POST['Morning'] as $key => $value) {
-          $data = $data . $value . ',';
-          $count++;
-  }
+    $data = $data . "Afternoon,";
 
-  $data = $data . "Afternoon,";
+    foreach ($_POST['Afternoon'] as $key => $value) {
+        $data = $data . $value . ',';
+        $count++;
+    }
 
-  foreach ($_POST['Afternoon'] as $key => $value) {
-          $data = $data . $value . ',';
-          $count++;
-  }
+    $data = $data . "Evening,";
 
-  $data = $data . "Evening,";
+    foreach ($_POST['Evening'] as $key => $value) {
+        $data = $data . $value . ',';
+        $count++;
+    }
+    
+    $data = rtrim($data,',');
+    
+    echo "data: <br>$data";
+    echo "<br><br>";
 
-  foreach ($_POST['Evening'] as $key => $value) {
-          $data = $data . $value . ',';
-          $count++;
-  }
-  
-  $data = rtrim($data,',');
-  
-  echo "data: <br>$data";
-  echo "<br><br>";
+    $ret = file_put_contents($savedFile, $data, LOCK_EX);
 
+    if($ret === false) {
+        die('There was an error writing this file');
+    } else {
+        echo "$count tasks saved. \n $ret bytes written to file.";
+    }
 
-  $ret = file_put_contents($savedFile, $data, LOCK_EX);
-
-  if($ret === false) {
-          die('There was an error writing this file');
-  } else {
-          echo "$count tasks saved. \n $ret bytes written to file.";
-          }
-
-  }
-
-  elseif ($count != 0) {
-    die('No tasks entered'); // TODO this always gets executed, need to change that
+  } elseif ($count != 0) {
+        die('No tasks entered'); // TODO this always gets executed, need to change that
   }
 ?>
