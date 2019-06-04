@@ -49,10 +49,6 @@ table, td {
   <input type="submit" name="taskTable" value="Save Tasks to Flower">
 </form><br>  
 
-<!--
-<button onclick="makeTableEditable()">Edit Tasks</button>
--->
-
 <script type="text/javascript">
 function myCreateFunction() {
   var task = document.getElementById("task_input").value; //getting task correctly
