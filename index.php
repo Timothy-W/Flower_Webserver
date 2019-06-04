@@ -43,7 +43,7 @@ table, td {
 <br>
      
 <table id="Evening">   
-<th>Morning Tasks</th>
+<th>Evening Tasks</th>
 </table>
 <br> 
   <input type="submit" name="taskTable" value="Save Tasks to Flower">
@@ -57,7 +57,7 @@ table, td {
 function myCreateFunction() {
   var task = document.getElementById("task_input").value;
   var time = document.getElementById("timeOfDay").value;
-  var stringOfName = time + "[]'"
+  var stringOfName = time + "[]"
   var labelString = "<label for='" + stringOfName + "'>" + task + "</label>"
   var deleteMeStr = "<input type='button' value='Delete Task' onclick='deleteRow(this)'>";
   var cellString = "<input type='text' name='" + stringOfName + " value='" + task + "'/>";
