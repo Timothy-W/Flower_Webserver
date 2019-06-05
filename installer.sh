@@ -5,7 +5,7 @@ NC='\033[0m'
 
 #Bash script to install web server for flower reminder
 echo -e "${PURP}Installing nginx and php.${NC}"
-sudo apt install nginx php-fpm
+sudo apt -y install nginx php-fpm
 
 echo -e "${PURP}Copying over new default config file.${NC}"
 #cd /etc/nginx
