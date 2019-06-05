@@ -17,8 +17,11 @@ sudo cp -f $(pwd)/default /etc/nginx/sites-enabled/default
 echo -e "${PURP}Copying web interface files.${NC}"
 #cd /var/www/html/
 #sudo cp -f $(pwd)/index.html /var/www/html/index.html
-#sudo cp -f $(pwd)/index.php /var/www/html/index.php
-#sudo cp -f $(pwd)/savetofile.php /var/www/html/savetofile.php
+sudo cp -f $(pwd)/index.php /var/www/html/index.php
+sudo cp -f $(pwd)/savetofile.php /var/www/html/savetofile.php
+
+echo -e "${PURP}Copying PHP config file.${NC}"
+#sudo cp -f $(pwd)/php.ini /etc/php/php.ini
 
 echo -e "${PURP}Creating data dir and fixing permissions${NC}"
 #sudo mkdir /var/www/html/data

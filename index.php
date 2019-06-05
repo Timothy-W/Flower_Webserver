@@ -192,7 +192,7 @@ function myDeleteFunction() {
 
 if(!empty($_POST['Morning']) or !empty($_POST['Afternoon']) or !empty($_POST['Evening']) ){
     
-    $savedFile = '/tasks/mydata.csv';
+    $savedFile = '/home/pi/FlowerApp/Tasks/taskList.csv';
 
     $count = 0;
     $data = "Morning,";
@@ -257,7 +257,7 @@ for ($i = 0; $i < count($timeOfDayArr); $i++) {
             $fileName = $currArray['name'][$fileNum];
             $fileType = array_reverse( explode(".", $fileName))[0];     
             // Set path and get base file name 
-            $path = "/tasks/uploads/";
+            $path = "/home/pi/FlowerApp/Videos/";
                         
             //$path = $path . basename( $_FILES[$time]['name'][$fileNum]); //Use this line to keep original file names
             $path = $path . $fileNum . "_" . $timeLabel . "." . $fileType; 
