@@ -37,3 +37,12 @@ echo -e "${PURP}NGINX default web page location: /var/www/html/index.nginx-debia
 echo -e "${PURP}Installation complete.${NC}"
 echo -e "${PURP}Raspberry Pi IP Addresses: "
 hostname -I
+
+
+
+
+
+
+
+
+#https://www.keycdn.com/support/413-request-entity-too-large
