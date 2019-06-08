@@ -5,7 +5,7 @@ NC='\033[0m'
 
 #Bash script to install web server for flower reminder
 echo -e "${PURP}Installing nginx and php.${NC}"
-sudo apt install nginx php-fpm
+sudo apt -y install nginx php-fpm
 
 echo -e "${PURP}Copying over new default config file.${NC}"
 #cd /etc/nginx
@@ -17,8 +17,11 @@ sudo cp -f $(pwd)/default /etc/nginx/sites-enabled/default
 echo -e "${PURP}Copying web interface files.${NC}"
 #cd /var/www/html/
 #sudo cp -f $(pwd)/index.html /var/www/html/index.html
-#sudo cp -f $(pwd)/index.php /var/www/html/index.php
-#sudo cp -f $(pwd)/savetofile.php /var/www/html/savetofile.php
+sudo cp -f $(pwd)/index.php /var/www/html/index.php
+sudo cp -f $(pwd)/savetofile.php /var/www/html/savetofile.php
+
+echo -e "${PURP}Copying PHP config file.${NC}"
+sudo cp -f $(pwd)/php.ini /etc/php/7.0/fpm/php.ini
 
 echo -e "${PURP}Creating data dir and fixing permissions${NC}"
 #sudo mkdir /var/www/html/data
@@ -37,3 +40,12 @@ echo -e "${PURP}NGINX default web page location: /var/www/html/index.nginx-debia
 echo -e "${PURP}Installation complete.${NC}"
 echo -e "${PURP}Raspberry Pi IP Addresses: "
 hostname -I
+
+
+
+
+
+
+
+
+#https://www.keycdn.com/support/413-request-entity-too-large

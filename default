@@ -41,6 +41,8 @@ server {
 	#root /var/www/html;
 	root /home/pi/Flower_Webserver;
 
+	client_max_body_size 100M;
+
 	# Add index.php to the list if you are using PHP
 	index index.php index.html index.htm index.nginx-debian.html;
 
