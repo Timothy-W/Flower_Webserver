@@ -21,7 +21,7 @@ sudo cp -f $(pwd)/index.php /var/www/html/index.php
 sudo cp -f $(pwd)/savetofile.php /var/www/html/savetofile.php
 
 echo -e "${PURP}Copying PHP config file.${NC}"
-sudo cp -f $(pwd)/php.ini /etc/php/7.0/fpm/php.ini
+sudo cp -f $(pwd)/php.ini /etc/php/7.0/cli/php.ini
 
 echo -e "${PURP}Creating data dir and fixing permissions${NC}"
 #sudo mkdir /var/www/html/data
