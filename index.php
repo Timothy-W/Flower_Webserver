@@ -13,52 +13,51 @@ table, td {
 <body>
 
 <!-- Time of Day selector --> 
- 
-<p>Select time of day: 
-<select id="timeOfDay" name="timeSectionOfDay">
-  <option value="Morning">Morning</option>
-  <option value="Afternoon">Afternoon</option>
-  <option value="Evening">Evening</option>
-</select>   
-</p>
+<div class="time-selector-container" > 
+  <p>Select time of day: 
+    <select id="timeOfDay" name="timeSectionOfDay">
+      <option value="Morning">Morning</option>
+      <option value="Afternoon">Afternoon</option>
+      <option value="Evening">Evening</option>
+    </select>   
+  </p>
+</div>
 
-<!-- Enter Tasks with pictures-->
-<form>
-  Enter task: <input id="task_input" name="input_task" type="text"/> 
-  <!--<br>Add picture or video to task:<input id="uploaded_file" type="file" name="multimedia_files" value="Add Pic or Vid"><br>-->
-</form><br>
+<div class="add-task-container">
+  <!-- Enter Tasks with pictures-->
+  <form> Enter task: <input id="task_input" name="input_task" type="text"/> </form><br>
+  <!-- Buttons -->
+  <button onclick="myCreateFunction()">Add Task</button><br>
+</div>
 
-<!-- Buttons -->
-<button onclick="myCreateFunction()">Add Task</button><br>
+
+
 
 <!-- Save all added tasks to file using php script 
-
-How do I get the form data to stay?
-    adding onsubmit="return false" kept data but broke submit
-
-
-
-
+      How do I get the form data to stay?
+        adding onsubmit="return false" kept data but broke submit
 -->
-<br><form enctype="multipart/form-data" action="index.php" method="POST">
- <!-- Tables --> 
-<table id="Morning">
-<th>Morning Tasks</th>
-</table>
-<br>
-     
-<table id="Afternoon">
-<th>Afternoon Tasks</th>
-</table>
-<br>
-     
-<table id="Evening">   
-<th>Evening Tasks</th>
-</table>
-<br> 
-  <input type="submit" name="taskTable" value="Save Tasks to Flower">
-</form><br><br>
+</div class="table-container">
+  <br><form enctype="multipart/form-data" action="index.php" method="POST">
+   <!-- Tables --> 
+  <table id="Morning">
+    <th>Morning Tasks</th>
+  </table>
+  <br>
 
+  <table id="Afternoon">
+    <th>Afternoon Tasks</th>
+  </table>
+  <br>
+
+  <table id="Evening">   
+    <th>Evening Tasks</th>
+  </table>
+  
+  <br> 
+  <input type="submit" name="taskTable" value="Save Tasks to Flower">
+  </form><br><br>
+</div>
 
 
 
