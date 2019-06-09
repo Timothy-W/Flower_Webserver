@@ -12,8 +12,9 @@ table, td {
 </head>
 <body>
 
-<!-- Time of Day selector -->  
-<p>Select timeSectionOfDay of day: 
+<!-- Time of Day selector --> 
+ 
+<p>Select time of day: 
 <select id="timeOfDay" name="timeSectionOfDay">
   <option value="Morning">Morning</option>
   <option value="Afternoon">Afternoon</option>
