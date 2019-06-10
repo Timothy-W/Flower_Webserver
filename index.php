@@ -18,9 +18,9 @@ body {
   }
 
   .instructions {
-    border: 1px #ccc solid;
+    border: 0px #ccc solid;
     flex:1;
-    max-width: 700px;
+    max-width: 800px;
     
   }
   
@@ -104,7 +104,7 @@ input[type=text]:focus {
 
     <div class="instructions">
       
-        <img src="Ins.png" width="700" height="1200" alt="Instructions">
+        <img src="Ins.png" width="800" height="1200" alt="Instructions">
          
         <figure></figure>
       </div>
