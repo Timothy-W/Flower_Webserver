@@ -2,65 +2,240 @@
 <html>
 <head>
 
-<style>
-table, td {
-  border: 0px solid black;
+<style type="text/css">
+
+@media(min-width:768px){
+  
+  .instructions {
+    display: flex;
+    flex:1;
+  }
+  
+  .main {
+    display: flex;
+    flex:1;
+    flex-direction: column;
+  }
+
 }
-  
-  
+
+.container {
+    display: flex;
+  }
+
+.main div {
+  border: 1px #ccc solid;
+  padding: 10px;
+}
+
+
+
+.time-selector {}
+
+
+.add-task {}
+
+
+.table {}
+
+
+#timeOfDay, #button {
+  background-color: #8b72dc;
+  padding: .5em;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 6px;
+  color: #fff;
+  font-family: 'Oswald';
+  font-size: 20px;
+  text-decoration: none;
+  border: none;
+}
+
+#uploaded_file {
+  background-color: #fff;
+  padding: .5em;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 6px;
+  font-family: 'Oswald';
+  font-size: 20px;
+  text-decoration: none;
+  border: none;
+}
+
+
+
+
+
 </style>
 </head>
 <body>
 
-<!-- Time of Day selector --> 
-<div class="time-selector-container" > 
-  <p>Select time of day: 
-    <select id="timeOfDay" name="timeSectionOfDay">
-      <option value="Morning">Morning</option>
-      <option value="Afternoon">Afternoon</option>
-      <option value="Evening">Evening</option>
-    </select>   
-  </p>
+<div class="container">
+
+    <div class="instructions">
+      <img src="Ins.png" width="700" height="1200" alt="Instructions">
+    </div>
+
+
+    <div class="main">
+
+        <!-- Time of Day selector --> 
+        <div class="time-selector" > 
+          <p>Select time of day: 
+            <select id="timeOfDay" name="timeSectionOfDay">
+              <option value="Morning">Morning</option>
+              <option value="Afternoon">Afternoon</option>
+              <option value="Evening">Evening</option>
+            </select>   
+          </p>
+        </div>
+
+        <div class="add-task">
+          <!-- Enter Tasks with pictures-->
+          <form> Enter task: <input id="task_input" name="input_task" type="text"/> </form><br>
+          <!-- Buttons -->
+          <button id="button" onclick="myCreateFunction()">Add Task</button><br>
+        </div>
+
+
+
+
+        <!-- Save all added tasks to file using php script 
+              How do I get the form data to stay?
+                adding onsubmit="return false" kept data but broke submit
+        -->
+        <div class="table">
+          <br><form enctype="multipart/form-data" action="index.php" method="POST">
+           <!-- Tables --> 
+          <table id="Morning">
+            <th>Morning Tasks</th>
+          </table>
+          <br>
+
+          <table id="Afternoon">
+            <th>Afternoon Tasks</th>
+          </table>
+          <br>
+
+          <table id="Evening">   
+            <th>Evening Tasks</th>
+          </table>
+
+          <br> 
+          <input type="submit" name="taskTable" id="button" value="Save Tasks to Flower">
+          </form><br><br>
+        </div>
+
+
+        <!---- PHPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP ----->
+
+              <?php
+
+
+                  /*-------------------------------------------------------------------------------
+                          Save tasks to file.
+                  -------------------------------------------------------------------------------*/
+
+
+                  if(!empty($_POST['Morning']) or !empty($_POST['Afternoon']) or !empty($_POST['Evening']) ){
+
+                      $savedFile = '/home/pi/FlowerApp/Tasks/taskList.csv';
+                  
+                      $count = 0;
+                      $data = "Morning,";
+                  
+                      foreach ($_POST['Morning'] as $key => $value) {
+                          $data = $data . $value . ',';
+                          $count++;
+                      }
+                    
+                      $data = $data . "Afternoon,";
+                    
+                      foreach ($_POST['Afternoon'] as $key => $value) {
+                          $data = $data . $value . ',';
+                          $count++;
+                      }
+                    
+                      $data = $data . "Evening,";
+                    
+                      foreach ($_POST['Evening'] as $key => $value) {
+                          $data = $data . $value . ',';
+                          $count++;
+                      }
+
+                      $data = rtrim($data,',');
+
+                      //echo "data: <br>$data";
+                      //echo "<br><br>";
+                    
+                      $ret = file_put_contents($savedFile, $data, LOCK_EX);
+                    
+                      if($ret === false) {
+                          die('There was an error writing this file<br>');
+                      } else {
+                          echo "$count tasks saved.<br>"; //$ret bytes written to file.
+                      }
+                    
+                  } elseif ($count != 0) {
+                      die('No tasks entered<br>'); // TODO this always gets executed, need to change that
+                  }
+
+
+                  /*-------------------------------------------------------------------------------
+                          Code for uploading files
+                  -------------------------------------------------------------------------------*/
+
+                  $timeOfDayArr = array('Morning', 'Afternoon', 'Evening');
+
+                  for ($i = 0; $i < count($timeOfDayArr); $i++) {
+                  
+                      $timeLabel = $timeOfDayArr[$i];
+                      $currTimeLabel = "MM_" . $timeLabel;
+                  
+                      //TODO: Figure out how to map uploaded files to their tasks
+
+                      if(!empty($_FILES[$currTimeLabel])) {
+                      
+                          $currArray = $_FILES[$currTimeLabel];
+                          $count = count($currArray['name']);
+                      
+                          for ($fileNum = 0; $fileNum < $count; $fileNum++) {
+                          
+                              $fileName = $currArray['name'][$fileNum];
+                              
+                              if ($fileName != ""){
+
+                              $fileType = array_reverse( explode(".", $fileName))[0];     
+                              // Set path and get base file name 
+                              $path = "/home/pi/FlowerApp/Videos/";
+
+                              //$path = $path . basename( $_FILES[$time]['name'][$fileNum]); //Use this line to keep original file names
+                              $path = $path . $fileNum . "_" . $timeLabel . "." . $fileType; 
+                          
+                              
+                              // Move file to from tmp location to desired location
+                              if(move_uploaded_file($_FILES[$currTimeLabel]['tmp_name'][$fileNum], $path)) {
+                              echo "<br>The file ".  basename( $_FILES[$currTimeLabel]['name'][$fileNum]). 
+                              " has been uploaded";
+                              } else{
+                                  echo "<br>There was an error uploading the file, please try again!";
+                              }
+                            }
+                            
+                          }
+                        
+                      }
+                    
+                  }
+
+              ?>
+
+
+    </div>
+
 </div>
-
-<div class="add-task-container">
-  <!-- Enter Tasks with pictures-->
-  <form> Enter task: <input id="task_input" name="input_task" type="text"/> </form><br>
-  <!-- Buttons -->
-  <button onclick="myCreateFunction()">Add Task</button><br>
-</div>
-
-
-
-
-<!-- Save all added tasks to file using php script 
-      How do I get the form data to stay?
-        adding onsubmit="return false" kept data but broke submit
--->
-</div class="table-container">
-  <br><form enctype="multipart/form-data" action="index.php" method="POST">
-   <!-- Tables --> 
-  <table id="Morning">
-    <th>Morning Tasks</th>
-  </table>
-  <br>
-
-  <table id="Afternoon">
-    <th>Afternoon Tasks</th>
-  </table>
-  <br>
-
-  <table id="Evening">   
-    <th>Evening Tasks</th>
-  </table>
-  
-  <br> 
-  <input type="submit" name="taskTable" value="Save Tasks to Flower">
-  </form><br><br>
-</div>
-
-
-
 
 <!-------------------------------------------------------------------------
                                 Javascript
@@ -79,7 +254,7 @@ function myCreateFunction() {
     var labelString = "<label for='" + postProcessTaskName + "'>" + task + "</label>"
     console.log("labelSring: " + labelString);
     
-    var deleteMeCellStr = "<input type='button' value='Delete Task' onclick='deleteRow(this)'>";
+    var deleteMeCellStr = "<input type='button' id='button' value='Delete Task' onclick='deleteRow(this)'>";
     var taskCellStr = "<input type='text' name='" + postProcessTaskName + " value='" + task + "'/>";
     
 
@@ -88,7 +263,7 @@ function myCreateFunction() {
 
     console.log(multiMedia);
     
-    var picOrVidCellString = "<input id='uploaded_file' type='file' name='" + postProcessMultiMediaName + " value=''>";
+    var picOrVidCellString = "<input id='uploaded_file' type='file' name='" + postProcessMultiMediaName + ">";
     
     
     // Uncomment if we just just name of added file to be displayed
@@ -182,165 +357,3 @@ function myDeleteFunction() {
 </body>
 </html>
 
-<?php
-
-
-/*-------------------------------------------------------------------------------
-        Save tasks to file.
--------------------------------------------------------------------------------*/
-
-
-if(!empty($_POST['Morning']) or !empty($_POST['Afternoon']) or !empty($_POST['Evening']) ){
-    
-    $savedFile = '/home/pi/FlowerApp/Tasks/taskList.csv';
-
-    $count = 0;
-    $data = "Morning,";
-
-    foreach ($_POST['Morning'] as $key => $value) {
-        $data = $data . $value . ',';
-        $count++;
-    }
-
-    $data = $data . "Afternoon,";
-
-    foreach ($_POST['Afternoon'] as $key => $value) {
-        $data = $data . $value . ',';
-        $count++;
-    }
-
-    $data = $data . "Evening,";
-
-    foreach ($_POST['Evening'] as $key => $value) {
-        $data = $data . $value . ',';
-        $count++;
-    }
-    
-    $data = rtrim($data,',');
-    
-    echo "data: <br>$data";
-    echo "<br><br>";
-
-    $ret = file_put_contents($savedFile, $data, LOCK_EX);
-
-    if($ret === false) {
-        die('There was an error writing this file<br>');
-    } else {
-        echo "$count tasks saved. \n $ret bytes written to file.<br>";
-    }
-
-} elseif ($count != 0) {
-    die('No tasks entered<br>'); // TODO this always gets executed, need to change that
-}
-
-
-/*-------------------------------------------------------------------------------
-        Code for uploading files
--------------------------------------------------------------------------------*/
-
-$timeOfDayArr = array('Morning', 'Afternoon', 'Evening');
-
-for ($i = 0; $i < count($timeOfDayArr); $i++) {
-
-    $timeLabel = $timeOfDayArr[$i];
-    $currTimeLabel = "MM_" . $timeLabel;
-
-    //TODO: Figure out how to map uploaded files to their tasks
-    
-    if(!empty($_FILES[$currTimeLabel])) {
-
-        $currArray = $_FILES[$currTimeLabel];
-        $count = count($currArray['name']);
-
-        for ($fileNum = 0; $fileNum < $count; $fileNum++) {
-        
-            $fileName = $currArray['name'][$fileNum];
-            $fileType = array_reverse( explode(".", $fileName))[0];     
-            // Set path and get base file name 
-            $path = "/home/pi/FlowerApp/Videos/";
-                        
-            //$path = $path . basename( $_FILES[$time]['name'][$fileNum]); //Use this line to keep original file names
-            $path = $path . $fileNum . "_" . $timeLabel . "." . $fileType; 
-
-            // Move file to from tmp location to desired location
-            if(move_uploaded_file($_FILES[$currTimeLabel]['tmp_name'][$fileNum], $path)) {
-            echo "<br>The file ".  basename( $_FILES[$currTimeLabel]['name'][$fileNum]). 
-            " has been uploaded";
-            } else{
-                echo "<br>There was an error uploading the file, please try again!";
-            }
-
-        }
-
-    }
-
-}
-
-
-
-
-/* $_FILES array structure
-array(5) { 
-    ["name"]=> array(2) {
-        [0]=> string(14) "Cat_actual.jpg" 
-        [1]=> string(13) "Cat_large.jpg" 
-    } 
-    ["type"]=> array(2) { 
-        [0]=> string(10) "image/jpeg" 
-        [1]=> string(10) "image/jpeg" 
-    } 
-    ["tmp_name"]=> array(2) { 
-        [0]=> string(14) "/tmp/phpNV3IU2" 
-        [1]=> string(14) "/tmp/php3b5Ce3" 
-    } 
-    ["error"]=> array(2) { 
-        [0]=> int(0) 
-        [1]=> int(0) 
-    } 
-    ["size"]=> array(2) { 
-        [0]=> int(2900794) 
-        [1]=> int(544582) 
-    } 
-} 
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* original example
-
-if(!empty($_FILES['uploaded_file']))
-  {
-    $path = "uploads/";
-    $path = $path . basename( $_FILES['uploaded_file']['name']);
-    if(move_uploaded_file($_FILES['uploaded_file']['tmp_name'], $path)) {
-      echo "The file ".  basename( $_FILES['uploaded_file']['name']). 
-      " has been uploaded";
-    } else{
-        echo "There was an error uploading the file, please try again!";
-    }
-  }
-*/
-
-
-
-
-?>
