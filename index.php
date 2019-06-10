@@ -4,30 +4,38 @@
 
 <style type="text/css">
 
-@media(min-width:768px){
+body {
+  background-color: #c3dc72;
+}
+
+
+@media(min-width:375px){
   
-  .instructions {
+  .container {
     display: flex;
+    margin: 0 auto;
+
+  }
+
+  .instructions {
+    border: 1px #ccc solid;
     flex:1;
+    max-width: 700px;
+    
   }
   
   .main {
-    display: flex;
     flex:1;
-    flex-direction: column;
+    font-family: 'Oswald';
+    font-size: 25px;
   }
 
 }
 
-.container {
-    display: flex;
-  }
-
-.main div {
-  border: 1px #ccc solid;
+.main div, .instructions div {
+  border: 0px #ccc solid;
   padding: 10px;
 }
-
 
 
 .time-selector {}
@@ -47,26 +55,46 @@
   border-radius: 6px;
   color: #fff;
   font-family: 'Oswald';
-  font-size: 20px;
+  font-size: 25px;
   text-decoration: none;
   border: none;
 }
 
-#uploaded_file {
-  background-color: #fff;
-  padding: .5em;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 6px;
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn {
+  color: white;
+  background-color: #8b72dc;
+  padding: 11px;
+  border-radius: 8px;
+  font-size: 25px;
   font-family: 'Oswald';
-  font-size: 20px;
-  text-decoration: none;
-  border: none;
+  
 }
 
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
 
+input[type=text] {
+  margin: 0px 0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 22px;
+}
 
-
+input[type=text]:focus {
+  border: 3px solid #555;
+}
 
 </style>
 </head>
@@ -75,8 +103,11 @@
 <div class="container">
 
     <div class="instructions">
-      <img src="Ins.png" width="700" height="1200" alt="Instructions">
-    </div>
+      
+        <img src="Ins.png" width="700" height="1200" alt="Instructions">
+         
+        <figure></figure>
+      </div>
 
 
     <div class="main">
@@ -263,7 +294,7 @@ function myCreateFunction() {
 
     console.log(multiMedia);
     
-    var picOrVidCellString = "<input id='uploaded_file' type='file' name='" + postProcessMultiMediaName + ">";
+    var picOrVidCellString = "<div class='upload-btn-wrapper'><button class='btn'>Upload Video</button><input id='uploaded_file' type='file' name='" + postProcessMultiMediaName + "></div>";
     
     
     // Uncomment if we just just name of added file to be displayed
