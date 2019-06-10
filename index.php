@@ -18,7 +18,7 @@ body {
   }
 
   .instructions {
-    border: 0px #ccc solid;
+    border: 5px #000000 solid;
     flex:1;
     max-width: 800px;
     
