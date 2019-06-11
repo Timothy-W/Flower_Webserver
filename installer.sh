@@ -19,6 +19,8 @@ echo -e "${PURP}Copying web interface files.${NC}"
 #sudo cp -f $(pwd)/index.html /var/www/html/index.html
 sudo cp -f $(pwd)/index.php /var/www/html/index.php
 sudo cp -f $(pwd)/savetofile.php /var/www/html/savetofile.php
+sudo cp -f $(pwd)/Ins.png /var/www/html/Ins.png
+
 
 echo -e "${PURP}Copying PHP config file.${NC}"
 sudo cp -f $(pwd)/php.ini /etc/php/7.0/cli/php.ini
