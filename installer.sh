@@ -1,5 +1,21 @@
 #!/bin/bash
+# Author: Timothy Walker
+# Date: 13 June 2019
+# Description: Simple bash script that;
+#     1. Installs nginx, php.
+#     2. Make needed data directories and copies over config files
+#     3. Sets up nginx services
+#     4. Displays IP address of raspberry pi
+#
+# Notes: This script is intended to be ran on a clean, updated install of 
+#        raspbian and assumes such. There is no error checking handling.
+#
+# The following link can be used to address HTTP Error 413 if it arrises.
+#       #https://www.keycdn.com/support/413-request-entity-too-large
+#
+#######
 
+# Color variables for output.
 PURP='\033[0;35m'
 NC='\033[0m'
 
@@ -43,12 +59,3 @@ echo -e "${PURP}NGINX default web page location: /var/www/html/index.nginx-debia
 echo -e "${PURP}Installation complete.${NC}"
 echo -e "${PURP}Raspberry Pi IP Addresses: "
 hostname -I
-
-
-
-
-
-
-
-
-#https://www.keycdn.com/support/413-request-entity-too-large
