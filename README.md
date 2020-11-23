@@ -4,4 +4,4 @@ Small web interface which allows care takers to uploaded tasks and associated vi
 
 Instructions:
 
-Run installer.sh to install nginx and copy needed files for webserver.
+Run installer.sh to install nginx and copy needed files for local web interface.
